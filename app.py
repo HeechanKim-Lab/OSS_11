@@ -1,3 +1,5 @@
+"""Streamlit app module."""
+# pylint: disable=import-error
 import streamlit as st
 
 st.title("환영합니다!")

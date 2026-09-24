@@ -14,6 +14,6 @@ jobs:
           FIRST_COMMIT_TIME: ${{ github.event.pull_request.created_at }}
           MERGE_TIME: ${{ github.event.pull_request.merged_at }}
         run: |
-          lead_time=$(( $(date -d "$MERGE_TIME" +%s) - $(date -d "$FIRST_COMMIT_TIME" +%s) ))
+          lead_time=$(python3 -c "from datetime import datetime; import os; fmt='%Y-%m-%dT%H:%M:%SZ'; t1=datetime.strptime(os.environ['FIRST_COMMIT_TIME'], fmt); t2=datetime.strptime(os.environ['MERGE_TIME'], fmt); print(int((t2-t1).total_seconds()))")
           echo "Lead Time: $lead_time seconds"
           echo "lead_time_seconds=$lead_time" >> "$GITHUB_STEP_SUMMARY"
