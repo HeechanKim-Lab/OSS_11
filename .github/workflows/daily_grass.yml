@@ -1,0 +1,33 @@
+name: Daily Grass Sustenance
+
+on:
+  schedule:
+    - cron: '15 1 * * *' # Every day at 10:15 KST (01:15 UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  feed-grass:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Generate Uncivilized Garbage
+        run: |
+          python3 shitpost_generator.py
+
+      - name: Commit and Push
+        run: |
+          git config user.name "HeechanKim-Lab"
+          git config user.email "2218160@donga.ac.kr"
+          git add SHITPOST.md
+          git commit -m "chore(grass): automated brainrot feeding via GitHub Actions 🌿" || echo "Nothing to commit"
+          git push
