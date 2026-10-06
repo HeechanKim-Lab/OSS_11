@@ -130,7 +130,7 @@ Cycle Time은 작업이 실질적으로 착수(`In Progress`)된 시점부터 �
 | **LinDA Singularity Error Fix** | Bug (Hotfix) | **0.4 days (9.6h)** | Done | Prevalence 10% 필터링 적용 |
 
 - **평균 기능 구현 Cycle Time**: `2.35 days`
-- **평균 장애 해결 Cycle Time (Hotfix)**: `0.35 days (8.4 hours)` $\rightarrow$ **DORA MTTR 지표와 긴밀한 상관관계 증명**
+- **평균 장애 해결 Cycle Time (Hotfix)**: `0.35 days (8.4 hours)` → **DORA MTTR 지표와 긴밀한 상관관계 증명**
 
 ---
 

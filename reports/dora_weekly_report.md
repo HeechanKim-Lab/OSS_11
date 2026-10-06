@@ -2,7 +2,7 @@
 
 - **리포지토리**: `HeechanKim-Lab/OSS_11`
 - **프로젝트 도메인**: Micro-Tom Rhizosphere Amplicon Pipeline
-- **생성 일시**: 2026-10-06 12:31:49 UTC
+- **생성 일시**: 2026-10-06 12:39:18 UTC
 - **평가 기간**: 최근 4주 누적 통계
 
 ---
@@ -32,9 +32,9 @@
 ## 3. 해결된 장애 및 핫픽스 내역 (MTTR 근거 데이터)
 
 | 이슈 번호 | 이슈 제목 | 복구 소요 시간 | 해결 일자 |
-| :--- | :--- | :---: | :---: |
-| **ISSUE-3** | Memory Overflow on High-Depth DADA2 Error Model Estimation | `2.1 hours` | 2026-10-02 |
-| **ISSUE-9** | Zero-Inflation Handling Failure in LinDA Random Effect Model | `1.8 hours` | 2026-10-05 |
+| :---: | :--- | :---: | :---: |
+| [**#11**](https://github.com/HeechanKim-Lab/OSS_11/issues/11) | Memory Overflow on High-Depth DADA2 Error Model Estimation | `2.1 hours` | 2026-10-02 |
+| [**#17**](https://github.com/HeechanKim-Lab/OSS_11/issues/17) | Zero-Inflation Handling Failure in LinDA Random Effect Model | `1.8 hours` | 2026-10-05 |
 
 ---
 

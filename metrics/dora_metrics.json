@@ -1,7 +1,7 @@
 {
   "repository": "HeechanKim-Lab/OSS_11",
   "project": "Micro-Tom Rhizosphere Amplicon Pipeline",
-  "generated_at": "2026-10-06T12:31:49.643076+00:00",
+  "generated_at": "2026-10-06T12:39:18.698643+00:00",
   "summary": {
     "lead_time_for_changes": {
       "value": 4.8,
@@ -64,16 +64,18 @@
   ],
   "incidents_resolved": [
     {
-      "id": "ISSUE-3",
+      "id": "#11",
       "title": "Memory Overflow on High-Depth DADA2 Error Model Estimation",
       "duration_hours": 2.1,
-      "resolved_at": "2026-10-02"
+      "resolved_at": "2026-10-02",
+      "url": "https://github.com/HeechanKim-Lab/OSS_11/issues/11"
     },
     {
-      "id": "ISSUE-9",
+      "id": "#17",
       "title": "Zero-Inflation Handling Failure in LinDA Random Effect Model",
       "duration_hours": 1.8,
-      "resolved_at": "2026-10-05"
+      "resolved_at": "2026-10-05",
+      "url": "https://github.com/HeechanKim-Lab/OSS_11/issues/17"
     }
   ]
 }

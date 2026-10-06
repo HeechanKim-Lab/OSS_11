@@ -102,16 +102,18 @@ def collect_or_simulate_metrics():
         ],
         "incidents_resolved": [
             {
-                "id": "ISSUE-3",
+                "id": "#11",
                 "title": "Memory Overflow on High-Depth DADA2 Error Model Estimation",
                 "duration_hours": 2.1,
-                "resolved_at": "2026-10-02"
+                "resolved_at": "2026-10-02",
+                "url": "https://github.com/HeechanKim-Lab/OSS_11/issues/11"
             },
             {
-                "id": "ISSUE-9",
+                "id": "#17",
                 "title": "Zero-Inflation Handling Failure in LinDA Random Effect Model",
                 "duration_hours": 1.8,
-                "resolved_at": "2026-10-05"
+                "resolved_at": "2026-10-05",
+                "url": "https://github.com/HeechanKim-Lab/OSS_11/issues/17"
             }
         ]
     }
@@ -463,9 +465,9 @@ def generate_weekly_report(data):
 ## 3. 해결된 장애 및 핫픽스 내역 (MTTR 근거 데이터)
 
 | 이슈 번호 | 이슈 제목 | 복구 소요 시간 | 해결 일자 |
-| :--- | :--- | :---: | :---: |
-| **ISSUE-3** | Memory Overflow on High-Depth DADA2 Error Model Estimation | `2.1 hours` | 2026-10-02 |
-| **ISSUE-9** | Zero-Inflation Handling Failure in LinDA Random Effect Model | `1.8 hours` | 2026-10-05 |
+| :---: | :--- | :---: | :---: |
+| [**#11**](https://github.com/HeechanKim-Lab/OSS_11/issues/11) | Memory Overflow on High-Depth DADA2 Error Model Estimation | `2.1 hours` | 2026-10-02 |
+| [**#17**](https://github.com/HeechanKim-Lab/OSS_11/issues/17) | Zero-Inflation Handling Failure in LinDA Random Effect Model | `1.8 hours` | 2026-10-05 |
 
 ---
 
