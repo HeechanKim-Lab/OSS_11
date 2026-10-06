@@ -1,7 +1,7 @@
 # 🧬 Micro-Tom Rhizosphere Amplicon Pipeline & DORA DevOps (OSS_11)
 
 > **OSS 실습 과제 저장소**  
-> 본 저장소는 연구 프로젝트인 **`microtom-rhizosphere-amplicon` (토마토 근권 16S/ITS 마이크로바이옴 시퀀싱 파이프라인)**의 데이터 분석 ETL 및 통계 모델링 워크플로우를 기반으로, **GitHub Projects를 활용한 애자일 칸반 협업 체계**와 **GitHub Actions를 통한 DORA 4대 핵심 지표 자동 수집 및 DevOps 대시보드**를 구축·운영하는 실습 프로젝트입니다.
+> 본 저장소는 연구 프로젝트인 `microtom-rhizosphere-amplicon` (토마토 근권 16S/ITS 마이크로바이옴 시퀀싱 파이프라인)의 데이터 분석 ETL 및 통계 모델링 워크플로우를 기반으로, **GitHub Projects를 활용한 애자일 칸반 협업 체계**와 **GitHub Actions를 통한 DORA 4대 핵심 지표 자동 수집 및 DevOps 대시보드**를 구축·운영하는 실습 프로젝트입니다.
 
 ---
 
