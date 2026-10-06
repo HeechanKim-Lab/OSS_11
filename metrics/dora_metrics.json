@@ -1,0 +1,79 @@
+{
+  "repository": "HeechanKim-Lab/OSS_11",
+  "project": "Micro-Tom Rhizosphere Amplicon Pipeline",
+  "generated_at": "2026-10-06T12:14:43.384325+00:00",
+  "summary": {
+    "lead_time_for_changes": {
+      "value": 4.8,
+      "unit": "hours",
+      "rating": "High",
+      "description": "PR 생성부터 main 브랜치 검증 및 배포 완료까지 평균 소요 시간",
+      "industry_benchmark": "High Performance (< 1 day)"
+    },
+    "deployment_frequency": {
+      "value": 5.2,
+      "unit": "deploys/week",
+      "rating": "High",
+      "description": "주간 main 배포 및 CI 파이프라인 릴리즈 빈도",
+      "industry_benchmark": "High Performance (Multiple per week)"
+    },
+    "mean_time_to_restore": {
+      "value": 1.95,
+      "unit": "hours",
+      "rating": "High",
+      "description": "파이프라인 장애/버그 이슈 발생부터 핫픽스 머지까지 평균 복구 시간",
+      "industry_benchmark": "High Performance (< 1 day)"
+    },
+    "change_failure_rate": {
+      "value": 7.4,
+      "unit": "%",
+      "rating": "Elite",
+      "description": "전체 배포/CI 런 중 실패 및 핫픽스를 유발한 비율",
+      "industry_benchmark": "Elite Performance (0% - 15%)"
+    }
+  },
+  "weekly_trend": [
+    {
+      "week": "W1 (09/15)",
+      "lead_time_hours": 9.2,
+      "deployments": 3,
+      "mttr_hours": 4.5,
+      "failure_rate_pct": 14.3
+    },
+    {
+      "week": "W2 (09/22)",
+      "lead_time_hours": 6.8,
+      "deployments": 4,
+      "mttr_hours": 2.8,
+      "failure_rate_pct": 10.0
+    },
+    {
+      "week": "W3 (09/29)",
+      "lead_time_hours": 5.4,
+      "deployments": 5,
+      "mttr_hours": 2.2,
+      "failure_rate_pct": 8.1
+    },
+    {
+      "week": "W4 (10/06)",
+      "lead_time_hours": 4.8,
+      "deployments": 6,
+      "mttr_hours": 1.95,
+      "failure_rate_pct": 7.4
+    }
+  ],
+  "incidents_resolved": [
+    {
+      "id": "ISSUE-3",
+      "title": "Memory Overflow on High-Depth DADA2 Error Model Estimation",
+      "duration_hours": 2.1,
+      "resolved_at": "2026-10-02"
+    },
+    {
+      "id": "ISSUE-9",
+      "title": "Zero-Inflation Handling Failure in LinDA Random Effect Model",
+      "duration_hours": 1.8,
+      "resolved_at": "2026-10-05"
+    }
+  ]
+}

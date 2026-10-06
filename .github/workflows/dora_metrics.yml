@@ -1,0 +1,77 @@
+name: DORA 4 Core Metrics & Automated Dashboard
+
+on:
+  schedule:
+    # 매주 월요일 09:00 KST (00:00 UTC) 주간 정기 리포트 생성
+    - cron: '0 0 * * 1'
+  workflow_dispatch: # 필요 시 언제든 수동 트리거 가능
+  push:
+    branches:
+      - main
+    paths:
+      - 'modules/**'
+      - 'pipeline/**'
+      - 'scripts/**'
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: write
+  pull-requests: read
+  issues: read
+  actions: read
+
+jobs:
+  collect-and-report-dora:
+    # PR이 닫힌 경우 머지된 경우에만 실행하거나, 스케줄/push/dispatch 시 실행
+    if: github.event_name != 'pull_request' || github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install matplotlib
+
+      - name: Collect DORA Metrics & Render Dashboard
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MPLCONFIGDIR: /tmp/matplotlib
+        run: |
+          python3 scripts/dora_dashboard.py
+
+      - name: Upload DORA JSON Artifact (선택과제)
+        uses: actions/upload-artifact@v4
+        with:
+          name: dora-metrics-json
+          path: metrics/dora_metrics.json
+          retention-days: 90
+
+      - name: Upload Weekly Report Artifact (선택과제)
+        uses: actions/upload-artifact@v4
+        with:
+          name: dora-weekly-report
+          path: |
+            reports/dora_weekly_report.md
+            assets/dora_dashboard.png
+            assets/dora_dashboard.html
+          retention-days: 90
+
+      - name: Commit and Push Updated Reports & Dashboard (Auto-Sync)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add metrics/ assets/ reports/ README.md || true
+          git commit -m "docs(metrics): update weekly DORA metrics dashboard & report [skip ci]" || echo "No changes to commit"
+          git push origin main || echo "Push skipped or not permitted"

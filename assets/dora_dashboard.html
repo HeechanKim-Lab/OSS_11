@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DORA Metrics Interactive Dashboard - OSS_11</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            margin: 0;
+            padding: 24px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .header h1 {
+            color: #58a6ff;
+            margin: 0 0 8px 0;
+            font-size: 28px;
+        }
+        .header p {
+            color: #8b949e;
+            font-size: 14px;
+            margin: 0;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: #58a6ff;
+        }
+        .card-title {
+            font-size: 13px;
+            color: #8b949e;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .card-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .badge-elite { background-color: rgba(163, 113, 247, 0.2); color: #a371f7; border: 1px solid #a371f7; }
+        .badge-high { background-color: rgba(46, 160, 67, 0.2); color: #3fb950; border: 1px solid #2ea043; }
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .chart-box {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .chart-box h3 {
+            margin: 0 0 16px 0;
+            font-size: 16px;
+            color: #f0f6fc;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 DORA 4 Core Metrics Dashboard</h1>
+        <p>프로젝트: Micro-Tom Rhizosphere Amplicon Pipeline | 최종 수집 시각: 2026-10-06 12:14:43 UTC</p>
+    </div>
+
+    <div class="cards-grid">
+        <div class="card">
+            <div class="card-title">Lead Time for Changes</div>
+            <div class="card-value">4.8 hrs</div>
+            <span class="badge badge-high">High (&lt; 1 day)</span>
+        </div>
+        <div class="card">
+            <div class="card-title">Deployment Frequency</div>
+            <div class="card-value">5.2 /wk</div>
+            <span class="badge badge-high">High (Multi/wk)</span>
+        </div>
+        <div class="card">
+            <div class="card-title">Mean Time to Restore (MTTR)</div>
+            <div class="card-value">1.95 hrs</div>
+            <span class="badge badge-high">High (&lt; 1 day)</span>
+        </div>
+        <div class="card">
+            <div class="card-title">Change Failure Rate</div>
+            <div class="card-value">7.4%</div>
+            <span class="badge badge-elite">Elite (0-15%)</span>
+        </div>
+    </div>
+
+    <div class="charts-grid">
+        <div class="chart-box">
+            <h3>⏱️ Lead Time for Changes (주차별 추이)</h3>
+            <canvas id="leadTimeChart"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3>🚀 Deployment Frequency (주차별 배포 횟수)</h3>
+            <canvas id="deployChart"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3>🩹 Mean Time to Restore (MTTR)</h3>
+            <canvas id="mttrChart"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3>⚠️ Change Failure Rate (%)</h3>
+            <canvas id="cfrChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        const weeks = ["W1 (09/15)", "W2 (09/22)", "W3 (09/29)", "W4 (10/06)"];
+        const leadTimes = [9.2, 6.8, 5.4, 4.8];
+        const deploys = [3, 4, 5, 6];
+        const mttrs = [4.5, 2.8, 2.2, 1.95];
+        const cfrs = [14.3, 10.0, 8.1, 7.4];
+
+        const defaultOptions = {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { grid: { color: '#21262d' }, ticks: { color: '#8b949e' } },
+                y: { grid: { color: '#21262d' }, ticks: { color: '#8b949e' } }
+            }
+        };
+
+        new Chart(document.getElementById('leadTimeChart'), {
+            type: 'line',
+            data: {
+                labels: weeks,
+                datasets: [{
+                    data: leadTimes,
+                    borderColor: '#2ea043',
+                    backgroundColor: 'rgba(46, 160, 67, 0.15)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: defaultOptions
+        });
+
+        new Chart(document.getElementById('deployChart'), {
+            type: 'bar',
+            data: {
+                labels: weeks,
+                datasets: [{
+                    data: deploys,
+                    backgroundColor: '#1f6feb',
+                    borderRadius: 4
+                }]
+            },
+            options: defaultOptions
+        });
+
+        new Chart(document.getElementById('mttrChart'), {
+            type: 'line',
+            data: {
+                labels: weeks,
+                datasets: [{
+                    data: mttrs,
+                    borderColor: '#db6d28',
+                    backgroundColor: 'rgba(219, 109, 40, 0.15)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: defaultOptions
+        });
+
+        new Chart(document.getElementById('cfrChart'), {
+            type: 'line',
+            data: {
+                labels: weeks,
+                datasets: [{
+                    data: cfrs,
+                    borderColor: '#a371f7',
+                    backgroundColor: 'rgba(163, 113, 247, 0.15)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: defaultOptions
+        });
+    </script>
+</body>
+</html>
