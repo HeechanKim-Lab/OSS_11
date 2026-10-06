@@ -67,7 +67,7 @@ GitHub Project 보드는 다음과 같은 5단계 상태 워크플로우로 운�
    - 목표: 알파/베타 다양성 계산, LinDA 차등 풍부도 통계, PICRUSt2 대사 경로 예측 모듈 및 DORA 4대 지표 고도화/주간 자동 리포트
    - 달성 현황: **진행 중 (1 Closed, 2 Review, 1 In Progress, 1 To Do, 1 Backlog)**
 
-### 3. 실무 백로그 이슈 목록 (12개 이슈)
+### 3. 실무 백로그 이슈 목록 (16개 이슈)
 
 | 이슈 번호 | 구분 | 이슈 제목 (Issue Title) | 마일스톤 | 라벨 (Labels) | 칸반 상태 |
 | :-: | :--: | :--- | :--- | :--- | :---: |
@@ -83,6 +83,10 @@ GitHub Project 보드는 다음과 같은 5단계 상태 워크플로우로 운�
 | [#18](https://github.com/HeechanKim-Lab/OSS_11/issues/18) | FEAT | PICRUSt2 Functional Metagenome Inference Pipeline | Sprint 2 | `feature`, `pipeline:stat`, `priority:medium` | **To Do** |
 | [#19](https://github.com/HeechanKim-Lab/OSS_11/issues/19) | METRICS | Weekly DORA Metric Aggregator, JSON Artifact & Dashboard | Sprint 2 | `metrics`, `ci/cd`, `priority:high` | **Review** |
 | [#20](https://github.com/HeechanKim-Lab/OSS_11/issues/20) | DOCS | Comprehensive Amplicon Pipeline Architecture & Agile Report | Sprint 2 | `documentation`, `priority:medium` | **Backlog** |
+| [#21](https://github.com/HeechanKim-Lab/OSS_11/issues/21) | FEAT | Multi-core Parallel Processing Optimization for Cutadapt | Sprint 2 | `feature`, `pipeline:qc`, `priority:medium` | **To Do** |
+| [#22](https://github.com/HeechanKim-Lab/OSS_11/issues/22) | BUG | Broken Pipe Error during Gzip Stream Decompression | Sprint 2 | `bug`, `incident`, `pipeline:qc`, `priority:high` | **In Progress** |
+| [#23](https://github.com/HeechanKim-Lab/OSS_11/issues/23) | FEAT | Interactive Heatmap and Volcano Plot Module for LinDA | Sprint 2 | `feature`, `pipeline:stat`, `priority:medium` | **Review** |
+| [#24](https://github.com/HeechanKim-Lab/OSS_11/issues/24) | DOCS | Add API Reference and Benchmarking Guidelines for Pipeline | Sprint 2 | `documentation`, `priority:low` | **Backlog** |
 
 ### 4. 이슈 템플릿 (Issue Templates)
 - [버그 리포트 템플릿](.github/ISSUE_TEMPLATE/bug_report.md): 버그 재현 단계, 에러 트레이스백, QIIME2/R 실행 환경
