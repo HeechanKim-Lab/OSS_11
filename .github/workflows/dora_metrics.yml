@@ -8,10 +8,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'modules/**'
-      - 'pipeline/**'
-      - 'scripts/**'
   pull_request:
     types: [closed]
 
