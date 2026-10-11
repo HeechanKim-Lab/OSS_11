@@ -45,12 +45,21 @@ MESSAGES=(
 )
 
 RANDOM_MSG="${MESSAGES[$RANDOM % ${#MESSAGES[@]}]}"
-
-# Stage the sacred shitpost ledger
-git add "$REPO_DIR/SHITPOST.md"
-
-# Also touch a random harmless dummy counter if wanted
+TODAY_DATE="$(date '+%Y-%m-%d')"
 DATE_NOW="$(date '+%Y-%m-%d %H:%M:%S')"
+
+# Append to daily_brainrot ledger as well
+cat <<EOF >> "$REPO_DIR/daily_brainrot.txt"
+
+[$TODAY_DATE]
+- Effort: Sub-zero negative cognitive density
+- Status: Primate keyboard assault completed
+- Brain cells remaining: -$(( RANDOM % 500 + 50 ))
+- Message: $RANDOM_MSG
+EOF
+
+# Stage the sacred shitpost ledger files
+git add "$REPO_DIR/SHITPOST.md" "$REPO_DIR/daily_brainrot.txt"
 
 # Commit and push
 git commit -m "$RANDOM_MSG" -m "Timestamp: $DATE_NOW | Powered by Uncivilized Automation"
