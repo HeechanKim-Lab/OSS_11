@@ -13,9 +13,9 @@ cd "$REPO_DIR"
 git config user.name "HeechanKim-Lab"
 git config user.email "2218160@donga.ac.kr"
 
-# Make sure we're on main
+# Make sure we're on main and cleanly rebased
 git checkout -q main 2>/dev/null || true
-git pull -q origin main 2>/dev/null || true
+git pull --rebase -q origin main 2>/dev/null || true
 
 # Run the python brainrot generator to append uncivilized nonsense
 python3 "$REPO_DIR/shitpost_generator.py"
