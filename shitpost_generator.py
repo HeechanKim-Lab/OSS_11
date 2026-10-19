@@ -63,6 +63,22 @@ ASCII_GRAVEYARD = [
        ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
               ||
            (  ಠ_ಠ )
+    """,
+    r"""
+        (  .      )
+       )           (     [ DUMPSTER FIRE ]
+      (    (  .     )    status: burning nicely
+       )     )    (      efficiency: 100%
+     [===============]
+     |   GARBAGE     |
+     |   PIPELINE    |
+     [===============]
+    """,
+    r"""
+          ___
+         /   \
+        |  o  |  <-- a potato has more cognitive function
+         \___/       than this git commit
     """
 ]
 
@@ -81,7 +97,12 @@ PHILOSOPHICAL_TRASH = [
     "Today I breathed air, drank lukewarm water, and fed the green monster on my GitHub profile. Productive day.",
     "Archaeologists in the year 3050 will dig up this git log and classify our civilization as deeply confused.",
     "Caveman rule #1: Rock hard. Fire hot. Commit green.",
-    "Commiting from the void. The void whispered back: 'Nice streak, bro'."
+    "Commiting from the void. The void whispered back: 'Nice streak, bro'.",
+    "I don't need a 401(k), I need a green GitHub contribution graph.",
+    "CSS center a div? Impossible. Push trash to GitHub? Effortless.",
+    "My code compiles because the compiler took pity on me.",
+    "Eating crayons is a valid debugging strategy if you believe hard enough.",
+    "Git blamed myself and honestly, git was right."
 ]
 
 CAVEMAN_GRUNTS = [
@@ -91,7 +112,10 @@ CAVEMAN_GRUNTS = [
     "ME HUNGRY FOR GREEN SQUARE",
     "CLACK CLACK ENTER PUSH DONE ZZZZ",
     "BRAIN OFF. FINGERS FAST. TILE GREEN.",
-    "OOF OOF AAH AAH MONKE CODE LEVEL ACHIEVED"
+    "OOF OOF AAH AAH MONKE CODE LEVEL ACHIEVED",
+    "MONKE PRESS BUTTON MONKE GET DOPAMINE 🍌",
+    "BRAIN SO SMOOTH IT REFLECTS SUNLIGHT ☀️",
+    "UNGA BUNGA MERGE CONFLICT EAT ROCKS 🪨"
 ]
 
 def generate_entry():

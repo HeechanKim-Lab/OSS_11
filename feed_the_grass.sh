@@ -42,6 +42,11 @@ MESSAGES=(
   "refactor: converted oxygen into pure git garbage"
   "feat: certified trash-tier contribution"
   "ci: automated brain-death protocol executed successfully"
+  "feat(monke): smashed coconut against keyboard, git approved 🥥"
+  "chore(brainrot): 0iq quantum photosynthesis ritual initiated 🌿"
+  "fix(entropy): added more chaos to an already ruined repository 📉"
+  "refactor(void): screamed into the terminal until commit appeared 🗣️"
+  "docs(crayons): delicious debugging nutrition acquired 🖍️"
 )
 
 RANDOM_MSG="${MESSAGES[$RANDOM % ${#MESSAGES[@]}]}"
