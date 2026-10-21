@@ -3,6 +3,7 @@ name: Daily Grass Sustenance
 on:
   schedule:
     - cron: '15 1 * * *' # Every day at 10:15 KST (01:15 UTC)
+    - cron: '15 13 * * *' # Every day at 22:15 KST (13:15 UTC) - Backup redundancy
   workflow_dispatch:
 
 permissions:
@@ -28,6 +29,11 @@ jobs:
         run: |
           git config user.name "HeechanKim-Lab"
           git config user.email "2218160@donga.ac.kr"
-          git add SHITPOST.md
-          git commit -m "chore(grass): automated brainrot feeding via GitHub Actions 🌿" || echo "Nothing to commit"
+          git add SHITPOST.md daily_brainrot.txt .gitignore
+          if [ -f .git_commit_msg.txt ]; then
+            git commit -F .git_commit_msg.txt || echo "Nothing to commit"
+            rm -f .git_commit_msg.txt
+          else
+            git commit -m "chore(grass): automated brainrot feeding via GitHub Actions 🌿" || echo "Nothing to commit"
+          fi
           git push

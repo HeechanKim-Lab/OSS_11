@@ -6,6 +6,8 @@
 
 set -euo pipefail
 
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/Library/Frameworks/Python.framework/Versions/3.13/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$REPO_DIR"
 
@@ -20,54 +22,19 @@ git pull --rebase -q origin main 2>/dev/null || true
 # Run the python brainrot generator to append uncivilized nonsense
 python3 "$REPO_DIR/shitpost_generator.py"
 
-# Random uncivilized commit messages
-MESSAGES=(
-  "chore(grass): photosynthesis goes brrrr 🌿"
-  "brainrot: unga bunga daily grass feeding 🦧"
-  "fix(sanity): deleted 3 brain cells for optimal performance"
-  "feat(vegetation): watered github tile with pure tears"
-  "shitpost: low effort high yield green square guaranteed"
-  "caveman: me hit keyboard rock rock clack green"
-  "refactor: rearranged dust particles in the repo"
-  "style: added uncivilized spiritual aura to the codebase"
-  "perf: optimized grass growth by yelling at git"
-  "docs: updated manifesto on why this repo is peak engineering"
-  "feat: photosynthesizing at 420 gigahertz"
-  "chore: feeding the green square void"
-  "brainrot: skibidi commit toilet algorithm v2.0"
-  "ugga: oog oog commit pushed grass green me sleep"
-  "fix: resolved bug where grass was insufficiently vibrant"
-  "feat: aggressively staring at git log until commits appear"
-  "chore: virtual grass touched, real grass safely avoided"
-  "refactor: converted oxygen into pure git garbage"
-  "feat: certified trash-tier contribution"
-  "ci: automated brain-death protocol executed successfully"
-  "feat(monke): smashed coconut against keyboard, git approved 🥥"
-  "chore(brainrot): 0iq quantum photosynthesis ritual initiated 🌿"
-  "fix(entropy): added more chaos to an already ruined repository 📉"
-  "refactor(void): screamed into the terminal until commit appeared 🗣️"
-  "docs(crayons): delicious debugging nutrition acquired 🖍️"
-)
-
-RANDOM_MSG="${MESSAGES[$RANDOM % ${#MESSAGES[@]}]}"
-TODAY_DATE="$(date '+%Y-%m-%d')"
-DATE_NOW="$(date '+%Y-%m-%d %H:%M:%S')"
-
-# Append to daily_brainrot ledger as well
-cat <<EOF >> "$REPO_DIR/daily_brainrot.txt"
-
-[$TODAY_DATE]
-- Effort: Sub-zero negative cognitive density
-- Status: Primate keyboard assault completed
-- Brain cells remaining: -$(( RANDOM % 500 + 50 ))
-- Message: $RANDOM_MSG
-EOF
+COMMIT_FILE="$REPO_DIR/.git_commit_msg.txt"
 
 # Stage the sacred shitpost ledger files
-git add "$REPO_DIR/SHITPOST.md" "$REPO_DIR/daily_brainrot.txt"
+git add "$REPO_DIR/SHITPOST.md" "$REPO_DIR/daily_brainrot.txt" "$REPO_DIR/.gitignore"
 
 # Commit and push
-git commit -m "$RANDOM_MSG" -m "Timestamp: $DATE_NOW | Powered by Uncivilized Automation"
+if [ -f "$COMMIT_FILE" ]; then
+  git commit -F "$COMMIT_FILE"
+  rm -f "$COMMIT_FILE"
+else
+  git commit -m "feat(grass): uncivilized automated photosynthesis ritual 🌿"
+fi
+
 git push origin main
 
-echo ">>> [SUCCESS] Grass fed with top-tier brainrot! Commit: '$RANDOM_MSG' at $DATE_NOW"
+echo ">>> [SUCCESS] Grass fed with top-tier brainrot! Contribution graph secured."
