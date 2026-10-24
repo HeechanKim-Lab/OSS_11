@@ -36,4 +36,5 @@ jobs:
           else
             git commit -m "chore(grass): automated brainrot feeding via GitHub Actions 🌿" || echo "Nothing to commit"
           fi
+          git pull --rebase origin main || true
           git push

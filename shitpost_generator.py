@@ -108,6 +108,23 @@ ASCII_GRAVEYARD = [
         ― ( ) ―   [QUANTUM PHOTOSYNTHESIS]
           `-’     Absorbing photons into GitHub commit squares...
          /   \
+    """,
+    r"""
+       >(')____,  <-- duck possessing higher cognitive capacity
+         (` =~~/      than this repository's entire architecture
+      ~^~^`---'~^~^
+    """,
+    r"""
+        [ MUNICIPAL TRASH RECEPTACLE ]
+           ___________
+          |  __   __  |   STATUS: OVERFLOWING
+          | |  | |  | |   VIBES: IMMACULATE
+          | |__| |__| |   STREAK: UNBROKEN
+          |___________|
+    """,
+    r"""
+          ( ˶•_•˶)  me committing absolute nonsense
+          / >🟩     here have a green square
     """
 ]
 
@@ -135,7 +152,13 @@ PHILOSOPHICAL_TRASH = [
     "DORA metrics status: Lead Time 0.001s, Deployment Frequency infinity, Change Failure Rate undefined (never had tests anyway).",
     "Why touch grass outside when grass inside screen never gives seasonal allergies?",
     "A smooth brain has no wrinkles, meaning zero friction for incoming thoughts.",
-    "Keyboard goes clack, server goes ping, tile turns green, ape is king."
+    "Keyboard goes clack, server goes ping, tile turns green, ape is king.",
+    "I asked ChatGPT for code, it refused on moral grounds, so here we are.",
+    "My git commit history looks like an EKG of an over-caffeinated raccoon.",
+    "You call it technical debt. I call it an emotional inheritance.",
+    "Some people write unit tests. I write git commit messages to ward off evil spirits.",
+    "Senior engineer: 'What design pattern did you use?' Me: 'The panic-and-push pattern.'",
+    "If you can't handle me at my `git push --force`, you don't deserve me at my green tile streak."
 ]
 
 CAVEMAN_GRUNTS = [
@@ -150,7 +173,10 @@ CAVEMAN_GRUNTS = [
     "BRAIN SO SMOOTH IT REFLECTS SUNLIGHT ☀️",
     "UNGA BUNGA MERGE CONFLICT EAT ROCKS 🪨",
     "HIT LAPTOP SCREEN WITH HEAVY STONE ME FIX MERGE CONFLICT 🪨💻",
-    "ME NO UNDERSTAND LINUS TORVALDS BUT ME PRESS PUSH 🌳"
+    "ME NO UNDERSTAND LINUS TORVALDS BUT ME PRESS PUSH 🌳",
+    "HEAD EMPTY. NO THOUGHTS. ONLY GREEN PIXELS.",
+    "ERROR 418: I AM A TEAPOT FILLED WITH PURE TRASH.",
+    "BRAIN PROTOCOL DISENGAGED. COMMENCE KEYBOARD SLAPPING."
 ]
 
 COMMIT_MESSAGES = [
@@ -190,8 +216,17 @@ COMMIT_MESSAGES = [
     "feat(matrix): broke out of simulation to push 1 byte to git 🕶️",
     "docs(monke): return to monke protocol step 42: push to main 🍌",
     "chore(streak): sacrificial offering to the almighty contribution graph ⛩️",
-    "feat(quantum): commit observed, wavefunction collapsed into green pixel ⚛️"
+    "feat(quantum): commit observed, wavefunction collapsed into green pixel ⚛️",
+    "chore(brainrot): sacrificed sanity to appease the green square gods 🧎‍♂️🟩",
+    "feat(chaos): introduced non-deterministic vibes into main branch 🎲",
+    "fix(logic): removed all logic to prevent further logical fallacies 🧠🚫",
+    "refactor(garbage): upgraded dumpster fire to municipal landfill status 🚜🔥",
+    "docs(truth): admitted in writing that I have no idea what I'm doing 📜",
+    "chore(grass): cyber-botany ritual executed at minimum cognitive altitude 🌱",
+    "feat(banana): converted 1 ripe banana into 1 green GitHub pixel 🍌",
+    "style(dumpster): added festive fairy lights to the trash heap 🎄🗑️"
 ]
+
 
 def generate_entry():
     now = datetime.datetime.now()
