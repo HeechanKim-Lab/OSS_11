@@ -2,7 +2,7 @@
 
 - **리포지토리**: `HeechanKim-Lab/OSS_11`
 - **프로젝트 도메인**: Micro-Tom Rhizosphere Amplicon Pipeline
-- **생성 일시**: 2026-11-11 00:09:10 UTC
+- **생성 일시**: 2026-11-11 23:26:48 UTC
 - **평가 기간**: 최근 4주 누적 통계
 
 ---
