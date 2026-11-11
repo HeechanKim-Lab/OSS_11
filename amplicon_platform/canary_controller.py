@@ -116,6 +116,7 @@ class CanaryRolloutController:
             "release_version": self.release_version,
             "stable_version": self.stable_version,
             "final_status": self.status,
+            "rolled_back": self.status == "AUTO_ROLLED_BACK",
             "active_version": self.active_version,
             "current_canary_traffic_pct": self.current_traffic_pct,
             "stages_executed": len(self.history),

@@ -53,6 +53,9 @@ class TestFeatureFlagsAndCanary(unittest.TestCase):
         self.assertGreater(count_a, 30)
         self.assertGreater(count_b, 30)
 
+        with self.assertRaises(ValueError):
+            assign_ab_variant("   ")
+
     def test_track_ab_event_writes_jsonl(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             log_file = os.path.join(tmpdir, "events.jsonl")
