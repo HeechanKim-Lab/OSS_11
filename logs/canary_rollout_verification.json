@@ -1,0 +1,121 @@
+{
+  "verified_at": "2026-11-11T23:52:18.831224+00:00",
+  "slo_policy": {
+    "max_error_rate_pct": 2.0,
+    "max_p95_latency_ms": 200.0
+  },
+  "scenario_1_full_promotion": {
+    "release_version": "v1.0.1-rc1",
+    "stable_version": "v1.0.0-stable",
+    "final_status": "COMPLETED_100_PCT",
+    "active_version": "v1.0.1-rc1",
+    "current_canary_traffic_pct": 100,
+    "stages_executed": 4,
+    "history": [
+      {
+        "timestamp": "2026-11-11T23:52:18.831088+00:00",
+        "stage_pct": 1,
+        "version": "v1.0.1-rc1",
+        "health": {
+          "healthy": true,
+          "error_rate_pct": 0.2,
+          "p95_latency_ms": 82.0,
+          "service_up": true,
+          "reasons": []
+        },
+        "action": "PROMOTED: Stage 1% passed health check."
+      },
+      {
+        "timestamp": "2026-11-11T23:52:18.831208+00:00",
+        "stage_pct": 10,
+        "version": "v1.0.1-rc1",
+        "health": {
+          "healthy": true,
+          "error_rate_pct": 0.4,
+          "p95_latency_ms": 95.0,
+          "service_up": true,
+          "reasons": []
+        },
+        "action": "PROMOTED: Stage 10% passed health check."
+      },
+      {
+        "timestamp": "2026-11-11T23:52:18.831211+00:00",
+        "stage_pct": 50,
+        "version": "v1.0.1-rc1",
+        "health": {
+          "healthy": true,
+          "error_rate_pct": 0.6,
+          "p95_latency_ms": 112.0,
+          "service_up": true,
+          "reasons": []
+        },
+        "action": "PROMOTED: Stage 50% passed health check."
+      },
+      {
+        "timestamp": "2026-11-11T23:52:18.831212+00:00",
+        "stage_pct": 100,
+        "version": "v1.0.1-rc1",
+        "health": {
+          "healthy": true,
+          "error_rate_pct": 0.5,
+          "p95_latency_ms": 108.0,
+          "service_up": true,
+          "reasons": []
+        },
+        "action": "PROMOTED: Stage 100% passed health check."
+      }
+    ]
+  },
+  "scenario_2_fault_injection_auto_rollback": {
+    "release_version": "v1.0.2-experimental-3d",
+    "stable_version": "v1.0.0-stable",
+    "final_status": "AUTO_ROLLED_BACK",
+    "active_version": "v1.0.0-stable",
+    "current_canary_traffic_pct": 0,
+    "stages_executed": 3,
+    "history": [
+      {
+        "timestamp": "2026-11-11T23:52:18.831216+00:00",
+        "stage_pct": 1,
+        "version": "v1.0.2-experimental-3d",
+        "health": {
+          "healthy": true,
+          "error_rate_pct": 0.3,
+          "p95_latency_ms": 88.0,
+          "service_up": true,
+          "reasons": []
+        },
+        "action": "PROMOTED: Stage 1% passed health check."
+      },
+      {
+        "timestamp": "2026-11-11T23:52:18.831218+00:00",
+        "stage_pct": 10,
+        "version": "v1.0.2-experimental-3d",
+        "health": {
+          "healthy": true,
+          "error_rate_pct": 0.8,
+          "p95_latency_ms": 115.0,
+          "service_up": true,
+          "reasons": []
+        },
+        "action": "PROMOTED: Stage 10% passed health check."
+      },
+      {
+        "timestamp": "2026-11-11T23:52:18.831222+00:00",
+        "stage_pct": 50,
+        "version": "v1.0.2-experimental-3d",
+        "health": {
+          "healthy": false,
+          "error_rate_pct": 5.8,
+          "p95_latency_ms": 340.0,
+          "service_up": true,
+          "reasons": [
+            "Error rate 5.80% exceeded threshold 2.00%",
+            "P95 latency 340.0ms exceeded threshold 200.0ms"
+          ]
+        },
+        "action": "CRITICAL: Health check failed at 50%. Automatically rolled back traffic to v1.0.0-stable (0% canary)."
+      }
+    ]
+  }
+}
