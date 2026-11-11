@@ -108,6 +108,9 @@ class TestCoreAmpliconTDD(unittest.TestCase):
         self.assertEqual(empty_metrics["richness"], 0)
         self.assertEqual(empty_metrics["shannon"], 0.0)
 
+        with self.assertRaises(ValueError):
+            compute_diversity_indices([-5, 100, 50])
+
     # 5. Feature 5: LinDA Differential Abundance & Prevalence Filter
     def test_run_linda_differential_test(self):
         feature_matrix = {

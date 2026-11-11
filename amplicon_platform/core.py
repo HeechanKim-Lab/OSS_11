@@ -124,6 +124,9 @@ def compute_diversity_indices(abundances: List[int]) -> Dict[str, float]:
     Computes Alpha Diversity indices: Richness (Observed ASVs), Shannon (H'),
     Simpson (1 - D), and Pielou's Evenness (J').
     """
+    if any(x < 0 for x in abundances):
+        raise ValueError("Abundance values cannot be negative")
+
     positive = [float(x) for x in abundances if x > 0]
     total = sum(positive)
     richness = len(positive)
@@ -198,6 +201,7 @@ def run_linda_differential_test(
         }
 
     return {
+        "total_asvs": len(feature_matrix),
         "ref_group": ref_group,
         "treat_group": treat_group,
         "filtered_out_rare": sorted(filtered_out_rare),
