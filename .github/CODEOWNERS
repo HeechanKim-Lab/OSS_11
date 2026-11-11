@@ -1,0 +1,15 @@
+# Default owners for everything in the repository
+* @HeechanKim-Lab
+
+# Core Amplicon Pipeline & Feature Flag Engine
+/amplicon_platform/ @HeechanKim-Lab
+/modules/ @HeechanKim-Lab
+/pipeline/ @HeechanKim-Lab
+
+# CI/CD Workflows & DevOps Metrics
+/.github/workflows/ @HeechanKim-Lab
+/scripts/ @HeechanKim-Lab
+
+# Architecture Decision Records & Lean PRD
+/docs/adr/ @HeechanKim-Lab
+/docs/prd/ @HeechanKim-Lab

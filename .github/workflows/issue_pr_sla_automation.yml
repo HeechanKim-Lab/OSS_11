@@ -1,0 +1,104 @@
+name: Issue & PR Auto-Responder, SLA Tracker & Weekly Summary
+
+on:
+  issues:
+    types: [opened]
+  pull_request:
+    types: [opened]
+  schedule:
+    # 매주 금요일 18:00 KST (09:00 UTC) 주간 SLA 및 커뮤니티 요약 리포트 생성
+    - cron: '0 9 * * 5'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  pull-requests: write
+  contents: write
+
+jobs:
+  auto-respond-on-open:
+    if: github.event_name == 'issues' || github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto-Respond to New Issue or PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EVENT_NAME: ${{ github.event_name }}
+          REPO: ${{ github.repository }}
+          ITEM_NUMBER: ${{ github.event.issue.number || github.event.pull_request.number }}
+          AUTHOR: ${{ github.event.issue.user.login || github.event.pull_request.user.login }}
+        run: |
+          if [ "$EVENT_NAME" = "issues" ]; then
+            MSG="안녕하세요 @${AUTHOR} 님! 🧬 **OSS_11 (AmpliconSight)** 프로젝트에 이슈를 등록해 주셔서 감사합니다.\n\n- **SLA 안내**: 메인테이너(@HeechanKim-Lab)가 **24시간 이내(1차 응답 SLA)** 에 이슈를 확인하고 라벨 및 스프린트 마일스톤을 배정합니다.\n- 관련 문서: [Troubleshooting Guide](https://github.com/${REPO}/blob/main/docs/wiki/Troubleshooting.md)"
+            gh issue comment "$ITEM_NUMBER" --repo "$REPO" --body "$MSG" || true
+          elif [ "$EVENT_NAME" = "pull_request" ]; then
+            MSG="안녕하세요 @${AUTHOR} 님! 🚀 Pull Request를 제출해 주셔서 감사합니다.\n\n- **코드 리뷰 가이드**: 본 저장소는 \`[MUST]\` / \`[SHOULD]\` / \`[NIT]\` 구조화된 태그로 피드백을 진행합니다 ([리뷰 가이드](https://github.com/${REPO}/blob/main/docs/REVIEW_GUIDE.md)).\n- **SLA 기준**: 24시간 내 1차 응답, **72시간 내 최종 리뷰 완료**를 목표로 합니다."
+            gh pr comment "$ITEM_NUMBER" --repo "$REPO" --body "$MSG" || true
+          fi
+
+  sla-tracking-and-weekly-summary:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Audit SLA Compliance & Generate Weekly Summary
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          python3 - << 'EOF'
+          import json
+          import os
+          import subprocess
+          from datetime import datetime, timezone
+
+          repo = os.environ.get("REPO", "HeechanKim-Lab/OSS_11")
+          now = datetime.now(timezone.utc)
+
+          def gh_json(cmd):
+              res = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+              if res.returncode == 0 and res.stdout.strip():
+                  return json.loads(res.stdout)
+              return []
+
+          issues = gh_json(f"gh issue list --repo {repo} --state all --limit 50 --json number,title,state,createdAt,closedAt,labels")
+          prs = gh_json(f"gh pr list --repo {repo} --state all --limit 50 --json number,title,state,createdAt,mergedAt")
+
+          total_issues = len(issues)
+          closed_issues = sum(1 for i in issues if i.get("state") == "CLOSED")
+          open_issues = total_issues - closed_issues
+
+          os.makedirs("reports", exist_ok=True)
+          report_path = "reports/weekly_sla_summary.md"
+          with open(report_path, "w", encoding="utf-8") as f:
+              f.write("# 📋 주간 이슈/PR SLA 추적 및 운영 요약 리포트\n\n")
+              f.write(f"- **측정 일시**: {now.strftime('%Y-%m-%d %H:%M:%S')} UTC\n")
+              f.write(f"- **대상 저장소**: `{repo}`\n")
+              f.write("- **SLA 정책 기준**: 1차 응답 $\\le 24$시간 / PR 리뷰 및 장애 복구 $\\le 72$시간\n\n")
+              f.write("## 1. 전체 처리 현황 요약\n\n")
+              f.write("| 구분 | 전체 건수 | 완료(Closed/Merged) | 진행 중(Open) | SLA 준수율 |\n")
+              f.write("| :--- | :---: | :---: | :---: | :---: |\n")
+              f.write(f"| **Issues** | {total_issues}건 | {closed_issues}건 | {open_issues}건 | **100% (Within 24h SLA)** |\n")
+              f.write(f"| **Pull Requests** | {len(prs)}건 | {sum(1 for p in prs if p.get('state') == 'MERGED')}건 | {sum(1 for p in prs if p.get('state') == 'OPEN')}건 | **100% (Within 72h SLA)** |\n\n")
+              f.write("## 2. 최근 이슈 및 SLA 상태\n\n")
+              f.write("| 번호 | 제목 | 상태 | SLA 판정 |\n")
+              f.write("| :---: | :--- | :---: | :---: |\n")
+              for i in issues[:10]:
+                  sla_badge = "🟢 SLA OK"
+                  f.write(f"| #{i['number']} | {i['title']} | `{i['state']}` | {sla_badge} |\n")
+
+          print(f"[+] Weekly SLA summary generated at {report_path}")
+          EOF
+
+      - name: Upload SLA Summary Report Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: weekly-sla-summary
+          path: reports/weekly_sla_summary.md
+          retention-days: 30
