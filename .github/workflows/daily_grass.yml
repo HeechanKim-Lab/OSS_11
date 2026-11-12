@@ -22,14 +22,16 @@ jobs:
           python-version: '3.10'
 
       - name: Generate Uncivilized Garbage
+        working-directory: archive_practice
         run: |
           python3 shitpost_generator.py
 
       - name: Commit and Push
+        working-directory: archive_practice
         run: |
           git config user.name "HeechanKim-Lab"
           git config user.email "2218160@donga.ac.kr"
-          git add SHITPOST.md daily_brainrot.txt .gitignore
+          git add SHITPOST.md daily_brainrot.txt
           if [ -f .git_commit_msg.txt ]; then
             git commit -F .git_commit_msg.txt || echo "Nothing to commit"
             rm -f .git_commit_msg.txt
