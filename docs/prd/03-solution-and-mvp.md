@@ -2,7 +2,9 @@
 
 | 제품 | 버전 | 최종 수정 | 관련 가설 |
 |---|---|---|---|
-| AmpliconSight | 0.1 | 2026-11-01 | H2, H3 |
+| AmpliconSight | 0.2 | 2026-11-12 | H2, H3 |
+
+> v0.2 변경 (`Cycle 1` 반영): 거절 사유 1위("음성대조군에서 어떤 ASV가 왜 제거되는지 근거가 안 보임") 및 2위("R1/R2 오타 자동 치환 필요")를 반영해 **"NTC 오염 ASV 제거 근거 한 줄 툴팁 및 R1/R2 자동 치환 버튼 (`FR8`)"**을 `MS1` `In`으로 추가함 (`H2` 연결).
 
 ## 1. 솔루션 개요
 
@@ -25,6 +27,7 @@
 |---|---|---|---|
 | Casava 1.8 Paired-end 매니페스트 입력 및 R1/R2 행 단위 검증 | In | H2 | 핵심 입력값. `validate_fastq_manifest` 엔진 연동 |
 | Pre-flight QC 진단 및 추천 파라미터 카드 (Cutadapt 수율·Decontam 임계값) | In | H2 | MS0: WoZ 검수 병행, MS1: 완전 자동화 |
+| NTC 오염 ASV 제거 근거 한 줄 툴팁 및 R1/R2 오타 원클릭 자동 치환 버튼 (FR8) | In (MS1부터) | H2 | v0.2 추가 (`Cycle 1` 거절 사유 81.8% 해소용 신뢰 장치) |
 | 추천 파라미터 "수락(스니펫 생성)" / "직접 수정(거절)" 버튼 | In | — | 측정 장치 — `M2` 수락률의 분자·분모 산출에 필수 |
 |Feature Flag 기반 3D PCoA 프리뷰 및 적응형 Decontam 토글 (`FF_INTERACTIVE_3D_PCOA`, `FF_ADAPTIVE_DECONTAM`) | In | H3 | MS1 코호트 재방문 유인 및 Variant A/B 비교 실험용 |
 | 연구자 식별용 경량 세션 ID (`researcher_id` 해시 버킷) | In | — | 최소 동작 조건 — 결정론적 SHA-256 A/B 할당 및 코호트 추적 |

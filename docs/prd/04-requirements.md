@@ -2,9 +2,9 @@
 
 | 제품 | 버전 | 최종 수정 | 관련 가설 |
 |---|---|---|---|
-| AmpliconSight | 0.1 | 2026-11-01 | H2, H3 |
+| AmpliconSight | 0.2 | 2026-11-12 | H2, H3 |
 
-범위: `03-solution-and-mvp.md` §3의 **In 항목만** 포함한다.
+범위: `03-solution-and-mvp.md` §3의 **In 항목만** 포함한다 (`v0.2`: `Cycle 1` 피드백에 따라 `FR8` 추가).
 
 ## 1. 사용자 스토리
 
@@ -28,6 +28,7 @@
 | FR5 | 추천 "수락" / "직접 수정(거절)" 버튼 및 `qc_recommendation_accepted` / `qc_recommendation_rejected` 이벤트 수집 | US3, US4 | Must |
 | FR6 | 결정론적 SHA-256 `assign_ab_variant` 기반 사용자 세션 식별 및 A/B Variant 고정 할당 | US6 | Must |
 | FR7 | GitHub Pages 정적 웹 배포 및 `/health.json` SLO 헬스체크 엔드포인트 제공 | US5, US6 | Should |
+| FR8 | NTC 오염 ASV 제거 근거 한 줄 툴팁 표시 및 매니페스트 `_R1_`↔`_R2_` 오타 원클릭 자동 치환 버튼 (v0.2 추가) | US1, US2 | Must (MS1) |
 
 ## 3. 비기능 요구사항
 
