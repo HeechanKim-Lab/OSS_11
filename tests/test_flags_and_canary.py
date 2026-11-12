@@ -10,7 +10,10 @@ from amplicon_platform.feature_flags import (
     assign_ab_variant,
     track_ab_event,
 )
-from amplicon_platform.canary_controller import CanaryRolloutController
+from amplicon_platform.canary_controller import (
+    CanaryRolloutController,
+    generate_canary_verification_artifacts,
+)
 
 
 class TestFeatureFlagsAndCanary(unittest.TestCase):
@@ -88,6 +91,12 @@ class TestFeatureFlagsAndCanary(unittest.TestCase):
         self.assertEqual(summary["current_canary_traffic_pct"], 0)
         self.assertEqual(summary["active_version"], "v1.0.0-stable")
         self.assertEqual(summary["stages_executed"], 3)  # Stopped at 50%
+
+    def test_generate_canary_verification_artifacts(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            generate_canary_verification_artifacts(tmpdir)
+            self.assertTrue(os.path.exists(os.path.join(tmpdir, "logs", "canary_rollout_verification.json")))
+            self.assertTrue(os.path.exists(os.path.join(tmpdir, "reports", "canary_rollback_report.md")))
 
 
 if __name__ == "__main__":
