@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AmpliconSight Workbench v1.0.1 — Micro-Tom Rhizosphere Pipeline</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --panel: #161b22;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+      --green: #3fb950;
+      --purple: #a371f7;
+      --orange: #db6d28;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+    }
+    .header h1 { margin: 0; font-size: 24px; color: var(--accent); }
+    .badge {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(63, 185, 80, 0.15);
+      color: var(--green);
+      border: 1px solid var(--green);
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 16px;
+      color: #f0f6fc;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+    .flag-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px dashed #21262d;
+    }
+    .btn {
+      background: #238636;
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .btn:hover { background: #2ea043; }
+    input, textarea {
+      width: 100%;
+      background: #0d1117;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px;
+      border-radius: 6px;
+      font-family: monospace;
+      margin-bottom: 10px;
+    }
+    .variant-banner {
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 12px;
+      font-size: 13px;
+      border: 1px solid var(--purple);
+      background: rgba(163, 113, 247, 0.12);
+    }
+    .log-box {
+      background: #010409;
+      border: 1px solid var(--border);
+      padding: 10px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 12px;
+      max-height: 150px;
+      overflow-y: auto;
+      color: #7ee787;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div>
+      <h1 id="app-title">🧬 AmpliconSight Web Workbench v1.0.1</h1>
+      <p style="margin:4px 0 0 0; color:var(--muted); font-size:13px;">
+        Solanum lycopersicum cv. 'Micro-Tom' Rhizosphere 16S &amp; ITS2 Amplicon Pipeline (N = 110)
+      </p>
+    </div>
+    <div>
+      <span class="badge" id="health-status">● HEALTH: UP (P95 88ms | Error 0.4%)</span>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <!-- 1. Feature Flags & A/B Experiment Panel -->
+    <div class="card">
+      <h2>🚩 Feature Flags &amp; A/B Experiment Control</h2>
+      <label style="font-size:12px; color:var(--muted);">Target Researcher ID (Deterministic SHA-256 Bucketing):</label>
+      <div style="display:flex; gap:8px;">
+        <input type="text" id="user-id-input" value="researcher_01" />
+        <button class="btn" id="assign-btn" onclick="evaluateUserVariant()">Assign</button>
+      </div>
+
+      <div id="flags-container">
+        <div class="flag-row">
+          <span><code>FF_PARALLEL_CUTADAPT</code></span>
+          <input type="checkbox" id="flag-cutadapt" checked onchange="logFlagToggle('FF_PARALLEL_CUTADAPT', this.checked)" style="width:auto;" />
+        </div>
+        <div class="flag-row">
+          <span><code>FF_ADAPTIVE_DECONTAM</code></span>
+          <input type="checkbox" id="flag-decontam" checked onchange="logFlagToggle('FF_ADAPTIVE_DECONTAM', this.checked)" style="width:auto;" />
+        </div>
+        <div class="flag-row">
+          <span><code>FF_INTERACTIVE_3D_PCOA</code></span>
+          <input type="checkbox" id="flag-pcoa" checked onchange="logFlagToggle('FF_INTERACTIVE_3D_PCOA', this.checked)" style="width:auto;" />
+        </div>
+        <div class="flag-row">
+          <span><code>FF_AUTO_PICRUST2_CACHE</code></span>
+          <input type="checkbox" id="flag-picrust" onchange="logFlagToggle('FF_AUTO_PICRUST2_CACHE', this.checked)" style="width:auto;" />
+        </div>
+      </div>
+
+      <div class="variant-banner" id="ab-variant-box">
+        <strong>Active Variant:</strong> <span id="variant-label">variant_B (Treatment: Interactive 3D PCoA + One-Click QC)</span>
+      </div>
+    </div>
+
+    <!-- 2. Casava 1.8 FASTQ Manifest & Decontam Instant Validator -->
+    <div class="card">
+      <h2>🧪 Instant Casava 1.8 Manifest &amp; Decontam QC</h2>
+      <textarea id="manifest-input" rows="4">GJ_01,GJ_01_S1_L001_R1_001.fastq.gz,GJ_01_S1_L001_R2_001.fastq.gz,GJ
+GB_02,GB_02_S2_L001_R1_001.fastq.gz,GB_02_S2_L001_R2_001.fastq.gz,GB
+CTRL_03,CTRL_03_S3_L001_R1_001.fastq.gz,CTRL_03_S3_L001_R2_001.fastq.gz,CTRL</textarea>
+      <button class="btn" id="validate-manifest-btn" onclick="runManifestValidation()">Run Instant QC Validation</button>
+      <div id="validation-result" style="margin-top:12px; font-size:13px; color:var(--green);">
+        ✅ Ready: 3/3 samples valid (Casava 1.8 paired-end verified, Decontam kitome ratio &lt; 1.0)
+      </div>
+    </div>
+
+    <!-- 3. Canary Progressive Rollout Monitor -->
+    <div class="card">
+      <h2>🐤 Canary Rollout &amp; Auto-Rollback Telemetry</h2>
+      <p style="font-size:13px; color:var(--muted);">Progressive Traffic Shift: <code>1% → 10% → 50% → 100%</code></p>
+      <div style="display:flex; gap:8px; margin-bottom:12px;">
+        <button class="btn" onclick="simulateCanary('promote')">Simulate 100% Promotion</button>
+        <button class="btn" style="background:#da3633;" onclick="simulateCanary('rollback')">Inject 50% Fault (Rollback)</button>
+      </div>
+      <div class="log-box" id="telemetry-log">
+[SYSTEM] Canary v1.0.1 initialized.
+[STAGE 1%] Error=0.2% | P95=82ms -> PROMOTED
+[STAGE 10%] Error=0.4% | P95=95ms -> PROMOTED
+[STAGE 50%] Error=0.6% | P95=112ms -> PROMOTED
+[STAGE 100%] Error=0.5% | P95=108ms -> COMPLETED_100_PCT
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Row -->
+  <div class="grid-3">
+    <div class="card">
+      <h2>📊 Rhizosphere Alpha Diversity (Shannon H')</h2>
+      <canvas id="diversityChart" height="140"></canvas>
+    </div>
+    <div class="card">
+      <h2>🧬 LinDA Differential Taxa (Log2 Fold Change: GJ vs CTRL)</h2>
+      <canvas id="lindaChart" height="140"></canvas>
+    </div>
+  </div>
+
+  <script>
+    function simpleHash(str) {
+      let h = 2166136261;
+      for (let i = 0; i < str.length; i++) {
+        h ^= str.charCodeAt(i);
+        h = Math.imul(h, 16777619);
+      }
+      return Math.abs(h) % 100;
+    }
+
+    function appendLog(msg) {
+      const box = document.getElementById('telemetry-log');
+      box.innerText += "\n" + msg;
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function evaluateUserVariant() {
+      const uid = document.getElementById('user-id-input').value.trim() || 'anonymous';
+      const bucket = simpleHash("exp_pcoa_workbench_v1:" + uid);
+      const variant = bucket < 50 ? "variant_B (Treatment: 3D PCoA + One-Click QC)" : "variant_A (Control: Standard 2D View)";
+      document.getElementById('variant-label').innerText = variant + " [Bucket=" + bucket + "]";
+      appendLog("[A/B EVENT] user=" + uid + " assigned to " + variant);
+    }
+
+    function logFlagToggle(flagName, enabled) {
+      appendLog("[FLAG TOGGLE] " + flagName + " => " + (enabled ? "ENABLED" : "DISABLED"));
+    }
+
+    function runManifestValidation() {
+      const raw = document.getElementById('manifest-input').value.trim();
+      const lines = raw ? raw.split('\n') : [];
+      let valid = 0;
+      let errors = [];
+      lines.forEach((line, idx) => {
+        const parts = line.split(',');
+        if (parts.length < 3 || !parts[1].includes('_R1_') || !parts[2].includes('_R2_')) {
+          errors.push("Row " + (idx + 1) + " invalid Casava pair");
+        } else {
+          valid++;
+        }
+      });
+      const resEl = document.getElementById('validation-result');
+      if (errors.length === 0 && valid > 0) {
+        resEl.style.color = "#3fb950";
+        resEl.innerText = "✅ PASS: " + valid + "/" + lines.length + " samples validated (0 kitome errors)";
+      } else {
+        resEl.style.color = "#f85149";
+        resEl.innerText = "❌ FAIL: " + errors.join("; ");
+      }
+      appendLog("[QC EVENT] Manifest validated: valid=" + valid + ", errors=" + errors.length);
+    }
+
+    function simulateCanary(mode) {
+      if (mode === 'rollback') {
+        document.getElementById('health-status').innerText = "⚠️ AUTO-ROLLBACK TO v1.0.0-stable (Canary 0%)";
+        appendLog("[ALERT] Stage 50% Error Rate=5.8% (>2.0% SLO)! Triggering instant rollback to v1.0.0-stable.");
+      } else {
+        document.getElementById('health-status').innerText = "● HEALTH: UP (v1.0.1 @ 100% Traffic)";
+        appendLog("[PROMOTED] Stage 1%->10%->50%->100% healthy. v1.0.1 active.");
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      new Chart(document.getElementById('diversityChart'), {
+        type: 'bar',
+        data: {
+          labels: ['CTRL (Peat)', 'Gijang B (GB)', 'Gyeongju (GJ)'],
+          datasets: [{
+            label: "Mean Shannon Index (H')",
+            data: [4.82, 5.45, 5.91],
+            backgroundColor: ['#8b949e', '#1f6feb', '#3fb950']
+          }]
+        },
+        options: { plugins: { legend: { display: false } } }
+      });
+
+      new Chart(document.getElementById('lindaChart'), {
+        type: 'bar',
+        data: {
+          labels: ['Pseudomonas_ASV1', 'Bacillus_ASV4', 'Streptomyces_ASV9', 'Fusarium_ITS2'],
+          datasets: [{
+            label: 'Log2 Fold Change',
+            data: [2.84, 2.15, 1.76, -1.92],
+            backgroundColor: ['#3fb950', '#3fb950', '#3fb950', '#f85149']
+          }]
+        },
+        options: { indexAxis: 'y', plugins: { legend: { display: false } } }
+      });
+    });
+  </script>
+</body>
+</html>

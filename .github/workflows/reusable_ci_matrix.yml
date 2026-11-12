@@ -1,0 +1,47 @@
+name: Reusable Matrix CI & Coverage Workflow
+
+on:
+  workflow_call:
+    inputs:
+      coverage-threshold:
+        required: false
+        type: number
+        default: 85
+    secrets:
+      AMPLICON_API_SECRET:
+        required: false
+
+jobs:
+  matrix-lint-and-test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        python-version: ["3.9", "3.10", "3.11"]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Environment via Composite Action
+        uses: ./.github/actions/setup-amplicon-env
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Verify Secret Injection Safety
+        env:
+          INJECTED_SECRET: ${{ secrets.AMPLICON_API_SECRET }}
+        run: |
+          if [ -n "$INJECTED_SECRET" ]; then
+            echo "✅ Secret AMPLICON_API_SECRET safely injected (length=${#INJECTED_SECRET})"
+          else
+            echo "ℹ️ Secret fallback active for fork/PR context"
+          fi
+
+      - name: Run Unit & E2E Tests with Coverage Gate (>= ${{ inputs.coverage-threshold }}%)
+        env:
+          MPLCONFIGDIR: /tmp/matplotlib
+        run: |
+          coverage run -m unittest discover -s tests -t . -v
+          coverage report --include="amplicon_platform/*" --fail-under=${{ inputs.coverage-threshold }} -m

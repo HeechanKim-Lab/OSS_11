@@ -1,0 +1,27 @@
+{
+  "name": "@heechankim-lab/oss-11",
+  "version": "1.0.0",
+  "description": "Micro-Tom Rhizosphere Amplicon QC, Diversity, and Feature Flag SDK",
+  "main": "index.js",
+  "scripts": {
+    "test": "node -e \"const sdk = require('./index.js'); sdk.selfTest();\"",
+    "build": "node -e \"console.log('Build verified for @heechankim-lab/oss-11 v' + require('./package.json').version);\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HeechanKim-Lab/OSS_11.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "keywords": [
+    "microbiome",
+    "amplicon",
+    "dada2",
+    "linda",
+    "feature-flags",
+    "dora-metrics"
+  ],
+  "author": "HeechanKim-Lab",
+  "license": "MIT"
+}

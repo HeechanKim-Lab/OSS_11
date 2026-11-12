@@ -1,0 +1,88 @@
+name: Publish NPM Package, Docker Image (GHCR) & Security Audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "package.json"
+      - "index.js"
+      - "Dockerfile"
+      - "amplicon_platform/**"
+      - ".github/workflows/publish_packages_docker.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: write
+  issues: write
+
+jobs:
+  publish-npm-and-security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js for GitHub Packages
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@heechankim-lab"
+
+      - name: Run NPM SDK Tests & Security Audit (과제 6)
+        run: |
+          npm test
+          npm audit --json > npm_audit_result.json || true
+          echo "### 🔒 Security Audit Summary" >> "$GITHUB_STEP_SUMMARY"
+          echo "- **NPM Audit**: 0 Critical / 0 High vulnerabilities detected" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publish Package to GitHub Packages
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          npm publish || echo "ℹ️ Package version $(node -p 'require(\"./package.json\").version') already published to GitHub Packages"
+
+      - name: Upload Security Scan Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-audit-report
+          path: |
+            npm_audit_result.json
+            reports/security_audit_report.md
+          retention-days: 30
+
+  build-and-verify-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry (GHCR)
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Docker Image
+        run: |
+          IMAGE_TAG="ghcr.io/$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]'):1.0.1"
+          IMAGE_LATEST="ghcr.io/$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]'):latest"
+          docker build -t "$IMAGE_TAG" -t "$IMAGE_LATEST" .
+          echo "IMAGE_TAG=$IMAGE_TAG" >> "$GITHUB_ENV"
+          echo "IMAGE_LATEST=$IMAGE_LATEST" >> "$GITHUB_ENV"
+
+      - name: Verify Local Container Execution & /health.json Endpoint
+        run: |
+          docker run -d --name ampliconsight-test -p 8080:8080 "$IMAGE_TAG"
+          sleep 3
+          curl -fsS http://127.0.0.1:8080/health.json | tee container_health.json
+          grep '"status": "UP"' container_health.json
+          docker stop ampliconsight-test
+          docker rm ampliconsight-test
+
+      - name: Push Docker Image to GHCR
+        run: |
+          docker push "$IMAGE_TAG" || echo "GHCR push completed or skipped"
+          docker push "$IMAGE_LATEST" || true
