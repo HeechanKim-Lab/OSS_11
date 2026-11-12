@@ -1,6 +1,6 @@
 {
   "name": "@heechankim-lab/oss-11",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Micro-Tom Rhizosphere Amplicon QC, Diversity, and Feature Flag SDK",
   "main": "index.js",
   "scripts": {
