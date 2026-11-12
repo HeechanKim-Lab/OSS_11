@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM python:3.15-slim
 
 LABEL org.opencontainers.image.source="https://github.com/HeechanKim-Lab/OSS_11"
 LABEL org.opencontainers.image.description="AmpliconSight Workbench & Micro-Tom Rhizosphere Pipeline Container"
