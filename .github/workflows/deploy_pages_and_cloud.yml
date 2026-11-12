@@ -33,7 +33,7 @@ jobs:
           echo "<!-- PR Preview Build for PR #${{ github.event.pull_request.number }} -->" >> pr_preview_dist/index.html
 
       - name: Upload PR Preview Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: pr-preview-env-pr-${{ github.event.pull_request.number }}
           path: pr_preview_dist/
