@@ -44,7 +44,7 @@ jobs:
           npm publish || echo "ℹ️ Package version $(node -p 'require(\"./package.json\").version') already published to GitHub Packages"
 
       - name: Upload Security Scan Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: security-audit-report
           path: |

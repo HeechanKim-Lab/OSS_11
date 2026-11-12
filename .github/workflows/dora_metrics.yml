@@ -48,14 +48,14 @@ jobs:
           python3 scripts/dora_dashboard.py
 
       - name: Upload DORA JSON Artifact (선택과제)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: dora-metrics-json
           path: metrics/dora_metrics.json
           retention-days: 90
 
       - name: Upload Weekly Report Artifact (선택과제)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: dora-weekly-report
           path: |
