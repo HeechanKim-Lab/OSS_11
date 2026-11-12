@@ -45,7 +45,12 @@ function selfTest() {
   console.log('[PASS] @heechankim-lab/oss-11 SDK selfTest succeeded (variant=' + v1 + ')');
 }
 
+function getPackageVersion() {
+  return '1.0.1';
+}
+
 module.exports = {
+  getPackageVersion,
   computeBucket,
   assignAbVariant,
   validateCasavaRecord,
