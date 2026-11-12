@@ -1,0 +1,11 @@
+persona_id,name,archetype,cli_skill,assigned_variant,time_to_complete_min,sus_score,satisfaction_5pt,would_recommend,pain_point,feature_request
+P01,"김지훈 (석사 1년차, 원예생명공학 Wet-lab 대학원생)",CLI 초보 · 실험실 시퀀싱 의뢰자,Low (1/5),variant_B,4.2,90,4.8,True,Decontam 임계값(0.1 vs 0.5)이 내 음성대조군(NTC)에서 어떤 ASV를 지우는지 예시 툴팁이 더 자세히 나오면 좋겠습니다.,불량 매니페스트 행 자동 수정(Auto-fix R1->R2 치환) 버튼 추가
+P02,"박소연 (박사후연구원, 토양 미생물 생태학)",R phyloseq 중급 사용자 · 대용량 코호트 분석가,Medium (3/5),variant_B,3.8,88,4.7,True,브라우저에서 바로 높은 해상도(600 DPI TIFF/PDF)로 내보내는 옵션이 필요합니다.,PERMANOVA R2 및 p-value 주석 자동 오버레이
+P03,이정민 교수 (식물병리학 연구실 PI / 연구책임자),의사결정자 · 주간 연구실 미팅 리뷰어,Low (1/5),variant_A,14.5,68,3.5,True,Variant A에서는 시각적 요약 카드가 부족해 학생에게 추가 설명을 요청해야 했습니다.,PI 리뷰용 1페이지 PDF QC 인증 리포트 출력
+P04,최현우 (스마트팜 마이크로바이옴 스타트업 CTO),엔지니어링 리더 · 파이프라인 자동화 책임자,High (5/5),variant_B,3.1,92,4.9,True,클라우드에서 직접 무거운 DADA2 연산까지 돌리면 서버 비용이 급증할 수 있으니 웹은 Pre-flight QC에 집중하는 게 좋습니다.,Slack/Webhook 기반 Canary 롤백 알림 연동
+P05,정다은 (유전체 분석 코어 퍼실리티 매니저),시퀀싱 서비스 운영자 · 다수 의뢰인 응대,Medium (3/5),variant_B,2.9,95,5.0,True,한글 경로명이 섞인 경우 경고 메시지가 별도로 표시되면 더 완벽할 것 같습니다.,Illumina SampleSheet.csv 직접 파싱 지원
+P06,강태윤 (바이오인포매틱스 학부 연구생 / 수업 조교),실습 조교 · 30명 수강생 환경 설정 지원,High (4/5),variant_B,4.0,89,4.8,True,모바일/태블릿 화면에서는 테이블 가로 스크롤이 조금 좁게 느껴집니다.,교육용 샘플 데이터셋 3종(정상/오염/수율저하) 프리셋 버튼
+P07,윤서아 (농촌진흥청 토양생태 연구사),공공기관 현장 연구원 · 보안망 사용자,Low (2/5),variant_A,19.2,62,3.2,False,Variant A의 정적 로그 출력 방식은 비전공자가 직관적으로 해석하기 어렵습니다.,오염균 제거 전/후 상대 풍부도(Relative Abundance) 비교 막대그래프
+P08,한승민 (임상 메타지노믹스 파이프라인 엔지니어),품질보증(QA) 및 재현성 검증 전문가,High (5/5),variant_B,5.1,86,4.6,True,다중 배치(Batch effect) 보정을 위한 메타데이터 공변량 선택 UI가 추가되면 좋겠습니다.,JSON/CSV 형태의 QC 감사 로그 다운로드 버튼
+P09,"오유진 (생물정보학 석사 2년차, R/Bioconductor 파워 유저)",기존 CLI 스크립트 선호자 · 회의적 얼리어답터,High (5/5),variant_A,11.4,74,3.9,True,웹에서 검증이 끝난 설정값을 바로 `run_pipeline.sh` 실행 인자(CLI 스니펫)로 복사해주는 기능이 꼭 있어야 합니다.,검증 완료 후 `bash pipeline/run_pipeline.sh --manifest ...` 명령어 자동 생성기
+P10,임도현 (바이오 벤처 QA/RA 인허가 담당자),규제/표준 문서 검토자 · DORA/SLA 모니터링 담당,Low (2/5),variant_B,4.8,91,4.8,True,릴리즈 버전별 변경 요약(Release Note)이 웹 하단에 표시되면 감사 시 더 편할 것 같습니다.,워크벤치 하단에 현재 배포 커밋 SHA 및 버전 배지 고정

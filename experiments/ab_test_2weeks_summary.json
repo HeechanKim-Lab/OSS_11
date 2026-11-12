@@ -1,0 +1,28 @@
+{
+  "experiment_id": "exp_pcoa_workbench_v1",
+  "duration_days": 14,
+  "total_sessions": 280,
+  "variant_A_control": {
+    "sessions": 140,
+    "activated_sessions": 73,
+    "activation_rate_pct": 52.14,
+    "mean_qc_completion_time_min": 18.4,
+    "manifest_error_retry_rate_pct": 31.43,
+    "d7_retention_rate_pct": 38.57
+  },
+  "variant_B_treatment": {
+    "sessions": 140,
+    "activated_sessions": 118,
+    "activation_rate_pct": 84.29,
+    "mean_qc_completion_time_min": 4.69,
+    "manifest_error_retry_rate_pct": 6.43,
+    "d7_retention_rate_pct": 71.43
+  },
+  "statistical_significance": {
+    "activation_uplift_pct_points": 32.14,
+    "qc_time_reduction_pct": 74.51,
+    "z_score": 5.7754,
+    "p_value": "< 0.0001",
+    "decision": "PERSEVERE on Core Interactive Pre-flight QC + FEATURE-LEVEL PIVOT (CLI Command Generator instead of Cloud DADA2 Compute)"
+  }
+}
