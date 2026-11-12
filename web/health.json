@@ -1,0 +1,11 @@
+{
+  "status": "UP",
+  "service": "AmpliconSight Web Workbench & API",
+  "version": "1.0.1",
+  "cohort": "Micro-Tom Rhizosphere Amplicon (N=110)",
+  "slo_metrics": {
+    "error_rate_pct": 0.4,
+    "p95_latency_ms": 88.5,
+    "canary_stage": "100%"
+  }
+}

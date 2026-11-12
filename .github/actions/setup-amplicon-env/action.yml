@@ -1,0 +1,38 @@
+name: "Setup AmpliconSight Environment (Composite Action)"
+description: "Composite action that sets up Python, Node.js, pip cache, and dependencies to eliminate workflow duplication."
+
+inputs:
+  python-version:
+    description: "Python version to set up"
+    required: false
+    default: "3.10"
+  node-version:
+    description: "Node.js version to set up"
+    required: false
+    default: "20"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python ${{ inputs.python-version }} with Pip Cache
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
+        cache: "pip"
+
+    - name: Set up Node.js ${{ inputs.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Install Python Dependencies
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install coverage pytest pytest-cov
+
+    - name: Verify Node SDK Self-Test
+      shell: bash
+      run: |
+        npm test
