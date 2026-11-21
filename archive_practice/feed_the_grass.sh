@@ -25,7 +25,7 @@ python3 "$REPO_DIR/shitpost_generator.py"
 COMMIT_FILE="$REPO_DIR/.git_commit_msg.txt"
 
 # Stage the sacred shitpost ledger files
-git add "$REPO_DIR/SHITPOST.md" "$REPO_DIR/daily_brainrot.txt" "$REPO_DIR/.gitignore"
+git add "$REPO_DIR/SHITPOST.md" "$REPO_DIR/daily_brainrot.txt"
 
 # Commit and push
 if [ -f "$COMMIT_FILE" ]; then

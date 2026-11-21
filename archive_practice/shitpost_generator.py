@@ -125,6 +125,21 @@ ASCII_GRAVEYARD = [
     r"""
           ( ˶•_•˶)  me committing absolute nonsense
           / >🟩     here have a green square
+    """,
+    r"""
+        [ PEAK COGNITIVE VELOCITY ]
+             \      /
+              .---.
+             /     \    HEAD EMPTY
+            | () () |   VIBES HIGH
+             \  -  /    COMMITTING...
+              '---'
+    """,
+    r"""
+         ~  _          _  ~
+        (  (o\________/o)  )   <-- frog witnessing
+         \      __      /          pure git blasphemy
+          '----'  '----'
     """
 ]
 
@@ -176,7 +191,11 @@ CAVEMAN_GRUNTS = [
     "ME NO UNDERSTAND LINUS TORVALDS BUT ME PRESS PUSH 🌳",
     "HEAD EMPTY. NO THOUGHTS. ONLY GREEN PIXELS.",
     "ERROR 418: I AM A TEAPOT FILLED WITH PURE TRASH.",
-    "BRAIN PROTOCOL DISENGAGED. COMMENCE KEYBOARD SLAPPING."
+    "BRAIN PROTOCOL DISENGAGED. COMMENCE KEYBOARD SLAPPING.",
+    "SMACK KEYBOARD WITH FROZEN SALMON FOR VIBRANT GREEN TILE 🐟🟩",
+    "ME FORGOT HOW TO CODE BUT GIT ACCEPT MY SHITPOST ANYWAY 🦍",
+    "ENTROPY INCREASED BY EXACTLY 1 COMMIT. MISSION ACCOMPLISHED 🚀🗑️",
+    "0% THINKING 100% PUSHING. CAVEMAN NIRVANA REACHED 🧘‍♂️🪨"
 ]
 
 COMMIT_MESSAGES = [
@@ -224,7 +243,12 @@ COMMIT_MESSAGES = [
     "docs(truth): admitted in writing that I have no idea what I'm doing 📜",
     "chore(grass): cyber-botany ritual executed at minimum cognitive altitude 🌱",
     "feat(banana): converted 1 ripe banana into 1 green GitHub pixel 🍌",
-    "style(dumpster): added festive fairy lights to the trash heap 🎄🗑️"
+    "style(dumpster): added festive fairy lights to the trash heap 🎄🗑️",
+    "feat(brainrot): sacrificed last remaining neuron to Linus Torvalds 🧠🔥",
+    "chore(uncivilized): zero thoughts head empty keyboard mash 🦧💥",
+    "fix(grass): virtual lawn mowed and re-seeded with pure nonsense 🚜🟩",
+    "perf(garbage): optimized trash delivery to github servers at O(1) 🗑️⚡",
+    "docs(manifesto): declared this repo the sovereign nation of shitposts 🏴‍☠️"
 ]
 
 
